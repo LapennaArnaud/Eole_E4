@@ -1,9 +1,8 @@
 #PPE_Eole
 
-Projet Eole / Gestion de régate
+Projet Eole / Gestion de rÃ©gate
 
 Membre du groupe : 
 
 William Muller
 Arnaud Lapenna
-Antoine Horvat
