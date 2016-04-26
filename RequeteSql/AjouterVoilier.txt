@@ -1,0 +1,3 @@
+"use ppeEole go INSERT INTO VOILIER(NOMVOIL, CLASSE, RATING) VALUES (" + tfNom.getText() + ", " +tfClasse.getTexr()+ ", " +tfRating.getText() + ")"
+
+"use ppeEole go Delete from VOILIER Where NOMVOIL like " + tfNom.getText() + " And CLASSE = " +tfClasse.getTexr()+ " AND RATING = " +tfRating.getText() + "

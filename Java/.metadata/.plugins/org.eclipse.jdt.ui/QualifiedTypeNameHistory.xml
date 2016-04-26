@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="eole.CreerVoilier"/>
+<fullyQualifiedTypeName name="javax.swing.event.ListSelectionListener"/>
+<fullyQualifiedTypeName name="javax.swing.event.ListSelectionEvent"/>
+<fullyQualifiedTypeName name="eole.Outils"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="eole.CreerSkipper"/>
+<fullyQualifiedTypeName name="eole.ModifierSkipper"/>
+<fullyQualifiedTypeName name="eole.SupprimerSkipper"/>
+<fullyQualifiedTypeName name="java.time.LocalTime"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.time.Duration"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="javax.swing.Timer"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="eole.Test"/>
+<fullyQualifiedTypeName name="org.jdatepicker.impl.JDatePanelImpl"/>
+<fullyQualifiedTypeName name="org.jdatepicker.impl.UtilDateModel"/>
+<fullyQualifiedTypeName name="org.jdatepicker.impl.JDatePickerImpl"/>
+<fullyQualifiedTypeName name="com.toedter.calendar.JDateChooser"/>
+<fullyQualifiedTypeName name="eole.SupprimerRegate"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="eole.ModifierRegate"/>
+<fullyQualifiedTypeName name="com.toedter.calendar.demo.DateChooserPanel"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.ParseException"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
+<fullyQualifiedTypeName name="java.time.ZoneId"/>
+<fullyQualifiedTypeName name="java.time.Instant"/>
+<fullyQualifiedTypeName name="eole.InscrireVoilierSkipper"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="eole.PopUpSkipperVoilier"/>
+<fullyQualifiedTypeName name="eole.LancerRegate"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.lang.ArithmeticException"/>
+</qualifiedTypeNameHistroy>

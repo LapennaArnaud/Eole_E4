@@ -1,0 +1,1 @@
+HyperSQL v. 2.3.3 is the latest release in hsqldb/hsqldb_2_3 directory. The ODBC driver for Windows is in the alphabeta directory.

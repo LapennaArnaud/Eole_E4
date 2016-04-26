@@ -1,0 +1,173 @@
+package eole;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.JScrollPane;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.demo.DateChooserPanel;
+
+public class ModifierRegate {
+	private JTable table;
+	private JTextField tfNom;
+	private JTextField tfDistance;
+	public ModifierRegate(){
+		final JFrame frmModifierRegate = new JFrame("Créer un Voilier");
+		frmModifierRegate.setType(Type.POPUP);
+		frmModifierRegate.setTitle("Modifier Regate");
+		frmModifierRegate.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmModifierRegate.setSize(737, 357);
+		frmModifierRegate.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		frmModifierRegate.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 357, 292);
+		panel.add(scrollPane);
+		
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(452, 156, 142, 20);
+		panel.add(dateChooser);
+
+		String[] entetes = {"Nom", "Distance", "Date"};
+		Object[][] data = {};
+		DefaultTableModel modele = new DefaultTableModel(data, entetes);
+		table.setModel(modele);
+		// Rajouter une colonne et une ligne (2eme méthode)
+		
+		Connection conn;
+    	String requete = "Select * From Regate";
+		try {
+			conn = DriverManager.getConnection("jdbc:ucanaccess://E:/2emeAnnee/PPE/Eole/PPE_Eole/BddAccess/BddEole.accdb");
+	    	Statement s = conn.createStatement();
+	    	ResultSet rs = s.executeQuery(requete);
+	    	while (rs.next()) {
+	    		modele.addRow(new Object[] {rs.getString(1), rs.getString(2), rs.getString(3).substring(0, 10)});
+	    	}
+	    	conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		        if (table.getSelectedRow() > -1) {
+		        	tfNom.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+		        	tfDistance.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+		        	
+		        	DateFormat formatter = new SimpleDateFormat("yyyy/dd/MM");
+		        	String dateInString = table.getValueAt(table.getSelectedRow(), 2).toString();
+		        	java.util.Date date;
+					try {
+						date = new SimpleDateFormat("yyyy-dd-MM").parse(dateInString);
+			        	dateChooser.setDate(date);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    }
+		});
+		
+		scrollPane.setViewportView(table);
+		
+		JButton btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Connection conn;
+				DateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
+	        	java.util.Date date;
+	        	String dateInString = table.getValueAt(table.getSelectedRow(), 2).toString();				
+		    	String requete = "UPDATE Regate SET NomRegate = '" + tfNom.getText() + "', Distance = " +tfDistance.getText();
+		    	requete += ", DateHeure = DateSerial(" + formatter.format(dateChooser.getDate()).substring(0, 4) + ", " + formatter.format(dateChooser.getDate()).substring(5, 7) + ", " + formatter.format(dateChooser.getDate()).substring(8, 10) + ")";
+		    	requete += " Where NomRegate like '" + table.getValueAt(table.getSelectedRow(), 0)  +"'";
+		    	requete += " And Distance = " + table.getValueAt(table.getSelectedRow(), 1);
+				try {
+					date = new SimpleDateFormat("yyyy-dd-MM").parse(dateInString);
+			    	requete += " And DateHeure = DateSerial(" + dateInString.substring(0, 4) + ", " + dateInString.substring(5, 7) + ", " + dateInString.substring(8, 10) + ")";
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				try {
+					conn = DriverManager.getConnection("jdbc:ucanaccess://E:/2emeAnnee/PPE/Eole/PPE_Eole/BddAccess/BddEole.accdb");
+			    	Statement s = conn.createStatement();
+			    	System.out.println(requete);
+			    	s.executeUpdate(requete);
+			    	conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				String[] entetes = {"Nom", "Distance", "Regate"};
+				Object[][] data = {};
+				DefaultTableModel modele = new DefaultTableModel(data, entetes);
+				table.setModel(modele);				
+		    	requete = "Select * From Regate";
+				try {
+					conn = DriverManager.getConnection("jdbc:ucanaccess://E:/2emeAnnee/PPE/Eole/PPE_Eole/BddAccess/BddEole.accdb");
+			    	Statement s = conn.createStatement();
+			    	ResultSet rs = s.executeQuery(requete);
+			    	while (rs.next()) {
+			    		modele.addRow(new Object[] {rs.getString(1), rs.getString(2), rs.getString(3).substring(0, 10)});
+			    	}
+			    	conn.close();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+			
+		});
+		btnValider.setBounds(415, 250, 89, 23);
+		panel.add(btnValider);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(565, 250, 89, 23);
+		panel.add(btnAnnuler);
+		
+		tfNom = new JTextField();
+		tfNom.setColumns(10);
+		tfNom.setBounds(508, 39, 86, 20);
+		panel.add(tfNom);
+		
+		JLabel lblNom = new JLabel("Nom");
+		lblNom.setBounds(452, 42, 46, 14);
+		panel.add(lblNom);
+		
+		JLabel lblDistance = new JLabel("Distance");
+		lblDistance.setBounds(452, 81, 46, 14);
+		panel.add(lblDistance);
+		
+		tfDistance = new JTextField();
+		tfDistance.setColumns(10);
+		tfDistance.setBounds(508, 78, 86, 20);
+		panel.add(tfDistance);
+		
+		frmModifierRegate.setVisible(true);
+	}
+}

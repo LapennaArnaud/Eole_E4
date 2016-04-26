@@ -1,0 +1,16 @@
+package eole;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Outils {
+	public String cheminBdd = "jdbc:ucanaccess://G:/2emeAnnee/PPE/Eole/PPE_Eole/BddAccess/BddEole.accdb";
+	
+	public int tempsReel(int h, int m, int s){
+		return s + m*60 + h*3600;
+	}
+	
+}

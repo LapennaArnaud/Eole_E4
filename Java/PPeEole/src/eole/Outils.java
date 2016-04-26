@@ -1,0 +1,39 @@
+package eole;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Outils {
+	public String cheminBdd = "jdbc:ucanaccess://C:/Users/arnaud/éclipse projets/PPE_Eole/BddAccess/BddEole.accdb";
+	
+	public int tempsReel(int h, int m, int s){
+		return s + m*60 + h*3600;
+	}
+	
+	public boolean estEntier(String s){
+		String chiffre = "0123456789";
+		boolean b = true;
+		for(int i = 0 ; i < s.length() ; i++){
+			if(chiffre.contains(s.substring(i, i+1))){
+				b = false;
+			}
+		}
+		return b;
+	}
+	
+	public String afficherTemps(int temps){
+		int h = temps / 3600;
+		temps -= h;
+		int m = temps / 60;
+		temps -= m;
+		return h + ":" + m + ":" + temps;
+	}
+	
+	public int tempsCompensé(int temps, int rating, int distance){
+		int handicap = (int)(5143 / (Math.sqrt(rating) + 3.5 ) * distance);
+		return (temps + handicap);
+	}
+}
