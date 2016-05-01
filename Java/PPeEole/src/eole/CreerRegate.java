@@ -45,7 +45,7 @@ public class CreerRegate extends Outils {
 	private JTextField tfNom;
 	private JTextField tfDistance;
 	public CreerRegate(){
-		final JFrame frmCreerUneRégate = new JFrame("Créer un Skipper");
+		final JFrame frmCreerUneRégate = new JFrame("Créer une Régate");
 		frmCreerUneRégate.setTitle("Cr\u00E9er une R\u00E9gate");
 		frmCreerUneRégate.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCreerUneRégate.setSize(279, 337);

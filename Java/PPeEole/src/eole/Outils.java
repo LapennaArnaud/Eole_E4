@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Outils {
-	public String cheminBdd = "jdbc:ucanaccess://C:/Users/arnaud/éclipse projets/PPE_Eole/BddAccess/BddEole.accdb";
+	public String cheminBdd = "jdbc:ucanaccess://C:/Users/arnaud/eclipse_projets/Eole_E4/BddAccess/BddEole.accdb";
 	
 	public int tempsReel(int h, int m, int s){
 		return s + m*60 + h*3600;
@@ -24,7 +24,7 @@ public class Outils {
 		return b;
 	}
 	
-	public String afficherTemps(int temps){
+	public String afficherTemps(int temps){ // ne marche pas 
 		int h = temps / 3600;
 		temps -= h;
 		int m = temps / 60;

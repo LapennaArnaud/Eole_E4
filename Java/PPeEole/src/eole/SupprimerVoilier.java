@@ -89,19 +89,20 @@ public class SupprimerVoilier extends Outils {
 				
 				int rep = JOptionPane.showConfirmDialog(null,"Voulez vous vraiment supprimer ce Voilier ?");
 				if (rep == 1 || rep == 2){
-					javax.swing.JOptionPane.showMessageDialog(null,"Ce Voilier n'a pas était supprimé !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Ce Voilier n'a pas été supprimé !");
 				}
 				if (rep == 0){
 					Connection conn;
 					String requete = "Delete from VOILIER Where NOMVOILIER like '" + table.getValueAt(table.getSelectedRow(), 0)  +"'";
 					requete += " And CLASSE = " + table.getValueAt(table.getSelectedRow(), 1) + " AND RATING = " + table.getValueAt(table.getSelectedRow(), 2);
+					System.out.println(requete);
 					try {
 						conn = DriverManager.getConnection(cheminBdd);
 				    	Statement s = conn.createStatement();
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce Voilier a était supprimé avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce Voilier a été supprimé avec succès !");
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -129,10 +130,15 @@ public class SupprimerVoilier extends Outils {
 				}
 			}
 		});
-		btnSupprimer.setBounds(38, 324, 89, 23);
+		btnSupprimer.setBounds(38, 324, 102, 23);
 		panel.add(btnSupprimer);
 		
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg1) {
+				frmSupprimerVoiliers.dispose();
+			}
+		});
 		btnQuitter.setBounds(237, 324, 89, 23);
 		panel.add(btnQuitter);
 		

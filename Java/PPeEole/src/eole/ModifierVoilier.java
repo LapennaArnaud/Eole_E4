@@ -138,7 +138,7 @@ public class ModifierVoilier extends Outils {
 			    	s.executeUpdate(requete);
 			    	conn.close();
 			    	s.close();
-			    	javax.swing.JOptionPane.showMessageDialog(null,"Le Voilier a était modifié avec succès !");
+			    	javax.swing.JOptionPane.showMessageDialog(null,"Le Voilier a été modifié avec succès !");
 			    	System.out.println(requete);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -168,6 +168,11 @@ public class ModifierVoilier extends Outils {
 		panel.add(btnValider);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg1) {
+				frmListeDesVoiliers.dispose();
+			}
+		});
 		btnAnnuler.setBounds(565, 250, 89, 23);
 		panel.add(btnAnnuler);
 		

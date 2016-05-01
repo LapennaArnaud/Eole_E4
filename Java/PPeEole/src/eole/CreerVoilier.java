@@ -79,21 +79,25 @@ public class CreerVoilier extends Outils{
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tfNom.getText().isEmpty()){
-					javax.swing.JOptionPane.showMessageDialog(null,"Le nom doit être renseigner !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Le nom doit être renseigné !");
 				}else if(estEntier(tfClasse.getText())){
-					javax.swing.JOptionPane.showMessageDialog(null,"La classe doit être correctement renseigner !");
+					javax.swing.JOptionPane.showMessageDialog(null,"La classe doit être correctement renseigné !");
 				}else if(estEntier(tfRating.getText())){
-					javax.swing.JOptionPane.showMessageDialog(null,"Le rating doit être correctement renseigner !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Le rating doit être correctement renseigné !");
 				}else{
 			    	Connection conn;
 			    	String requete = "INSERT INTO VOILIER(NOMVOILIER, CLASSE, RATING) VALUES ('" + tfNom.getText() + "', " +tfClasse.getText()+ ", " +tfRating.getText() + ")";
-					try {
+					System.out.println(requete);
+			    	try {
 						conn = DriverManager.getConnection(cheminBdd);
 				    	Statement s = conn.createStatement();
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"Le voilier a était ajouté avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"Le voilier a été ajouté avec succès !");
+				    	tfNom.setText("");
+				    	tfClasse.setText("");
+				    	tfRating.setText("");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -106,7 +110,8 @@ public class CreerVoilier extends Outils{
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg1) {
-				System.exit(JFrame.DISPOSE_ON_CLOSE);
+				//System.exit(JFrame.DISPOSE_ON_CLOSE);
+				frame.dispose();
 			}
 		});
 		btnAnnuler.setBounds(160, 260, 89, 23);

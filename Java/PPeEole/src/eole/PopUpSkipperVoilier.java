@@ -59,7 +59,7 @@ public class PopUpSkipperVoilier extends Outils{
 		
 		scrollPane.setViewportView(table);
 		
-		JComboBox cmbVoilier = new JComboBox();
+		JComboBox<String> cmbVoilier = new JComboBox<String>();
     	requete = "Select * From Voilier";
 		try {
 			conn = DriverManager.getConnection(cheminBdd);
@@ -77,7 +77,7 @@ public class PopUpSkipperVoilier extends Outils{
 		panel.add(cmbVoilier);
 		
 		
-		JComboBox cmbSkipper = new JComboBox();
+		JComboBox<String> cmbSkipper = new JComboBox<>();
 		requete = "Select * From Skipper";
 		try {
 			conn = DriverManager.getConnection(cheminBdd);
