@@ -43,7 +43,7 @@ import java.awt.Dialog.ModalExclusionType;
 public class SupprimerSkipper extends Outils{
 	private JTable table;
 	public SupprimerSkipper(){
-		final JFrame frmSupprimerSkipper = new JFrame("Créer un Voilier");
+		final JFrame frmSupprimerSkipper = new JFrame("Supprimer un skipper");
 		frmSupprimerSkipper.setTitle("Supprimer Skipper");
 		frmSupprimerSkipper.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmSupprimerSkipper.setSize(393, 407);
@@ -89,7 +89,7 @@ public class SupprimerSkipper extends Outils{
 			public void actionPerformed(ActionEvent e) {
 				int rep = JOptionPane.showConfirmDialog(null,"Voulez vous vraiment supprimer ce Skipper ?");
 				if (rep == 1 || rep == 2){
-					javax.swing.JOptionPane.showMessageDialog(null,"Ce skipper n'a pas était supprimé !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Ce skipper n'a pas été supprimé !");
 				}
 				if (rep == 0){
 					Connection conn;
@@ -101,7 +101,7 @@ public class SupprimerSkipper extends Outils{
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce skipper a était supprimé avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce skipper a été supprimé avec succès !");
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -129,10 +129,15 @@ public class SupprimerSkipper extends Outils{
 				}
 			}
 		});
-		btnSupprimer.setBounds(38, 324, 89, 23);
+		btnSupprimer.setBounds(38, 324, 95, 23);
 		panel.add(btnSupprimer);
 		
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg1) {
+				frmSupprimerSkipper.dispose();
+			}
+		});
 		btnQuitter.setBounds(237, 324, 89, 23);
 		panel.add(btnQuitter);
 		

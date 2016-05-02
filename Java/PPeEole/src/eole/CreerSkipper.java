@@ -70,9 +70,9 @@ public class CreerSkipper extends Outils{
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tfNom.getText().isEmpty()){
-					javax.swing.JOptionPane.showMessageDialog(null,"Le nom doit être correctement renseigner !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Le nom doit être correctement renseigné !");
 				}else if(tfPrenom.getText().isEmpty()){
-					javax.swing.JOptionPane.showMessageDialog(null,"Le prénom doit être correctement renseigner !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Le prénom doit être correctement renseigné !");
 				}else{
 			    	Connection conn;
 			    	String requete = "INSERT INTO Skipper(NomSkipper, PrenomSkipper) VALUES ('" + tfNom.getText() + "', '" +tfPrenom.getText()+ "')";
@@ -82,7 +82,7 @@ public class CreerSkipper extends Outils{
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"Le Skipper a était ajouté avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"Le Skipper a été ajouté avec succès !");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -95,7 +95,7 @@ public class CreerSkipper extends Outils{
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg1) {
-				System.exit(JFrame.DISPOSE_ON_CLOSE);
+				frmCreerUnSkipper.dispose();
 			}
 		});
 		btnAnnuler.setBounds(160, 260, 89, 23);

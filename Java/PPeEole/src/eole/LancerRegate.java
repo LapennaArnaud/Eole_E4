@@ -14,7 +14,7 @@ public class LancerRegate extends Outils {
 	private JTable table;
 	public LancerRegate(){
 		final JFrame frmListeDesRegates = new JFrame("Créer un Voilier");
-		frmListeDesRegates.setTitle("Liste des R\u00E9gates");
+		frmListeDesRegates.setTitle("Liste des R\u00E9gates à lancer");
 		frmListeDesRegates.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListeDesRegates.setSize(393, 407);
 		frmListeDesRegates.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -57,7 +57,11 @@ public class LancerRegate extends Outils {
 		JButton btnLancer = new JButton("Lancer");
 		btnLancer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new PopUpLancerRegate((String)table.getValueAt(table.getSelectedRow(), 3));
+				try{
+					new PopUpLancerRegate((String)table.getValueAt(table.getSelectedRow(), 3));
+				}catch (Exception exception){
+					javax.swing.JOptionPane.showMessageDialog(null,"Veuillez sélectionner une régate !");
+				}
 			}
 		});
 		btnLancer.setBounds(137, 322, 89, 23);

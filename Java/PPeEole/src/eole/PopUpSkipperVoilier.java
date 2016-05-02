@@ -16,9 +16,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class PopUpSkipperVoilier extends Outils{
+	
 	private JTable table;
+	private String nomRegate;
+	
 	public PopUpSkipperVoilier(String NumRegate){
 		final JFrame frmListeDesRegates = new JFrame("Créer un Voilier");
 		frmListeDesRegates.setTitle("Liste des R\u00E9gates");
@@ -95,6 +102,22 @@ public class PopUpSkipperVoilier extends Outils{
 		cmbSkipper.setBounds(407, 40, 113, 24);
 		panel.add(cmbSkipper);
 		
+		// récupération du nom de régate 
+		requete = "Select NomRegate FROM Regate WHERE NumRegate ="+NumRegate;
+		try {
+			conn = DriverManager.getConnection(cheminBdd);
+	    	Statement s = conn.createStatement();
+	    	ResultSet rs = s.executeQuery(requete);
+	    	while (rs.next()) {
+	    		nomRegate=rs.getString(1);
+	    	}
+	    	conn.close();
+	    	s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		JButton btnInscrire = new JButton("Inscrire");
 		btnInscrire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,17 +151,22 @@ public class PopUpSkipperVoilier extends Outils{
 			    	s.executeUpdate(requete);
 			    	conn.close();
 			    	s.close();
-			    	javax.swing.JOptionPane.showMessageDialog(null,"Couple Skipper/Voilier inscrie avec succès !");
+			    	javax.swing.JOptionPane.showMessageDialog(null,"Couple Skipper/Voilier inscri avec succès !");
 			    	modeleListe.addRow(new Object[] {resVoilier, resSkipper});
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		btnInscrire.setBounds(260, 173, 89, 23);
+		btnInscrire.setBounds(248, 173, 89, 23);
 		panel.add(btnInscrire);
 		
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+	      	public void actionPerformed(ActionEvent arg0) {
+	      		frmListeDesRegates.dispose();
+	      	}
+	      });
 		btnQuitter.setBounds(458, 173, 89, 23);
 		panel.add(btnQuitter);
 		
@@ -147,7 +175,7 @@ public class PopUpSkipperVoilier extends Outils{
 			public void actionPerformed(ActionEvent arg0) {
 				int rep = JOptionPane.showConfirmDialog(null,"Voulez vous vraiment supprimer ce couple ?");
 				if (rep == 1 || rep == 2){
-					javax.swing.JOptionPane.showMessageDialog(null,"Ce couple n'a pas était supprimé !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Ce couple n'a pas été supprimé !");
 				}
 				if (rep == 0){
 					Connection conn;
@@ -161,7 +189,7 @@ public class PopUpSkipperVoilier extends Outils{
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce Couple a était supprimé avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"Ce Couple a été supprimé avec succès !");
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -190,8 +218,18 @@ public class PopUpSkipperVoilier extends Outils{
 				}
 			}
 		});
-		btnSupprimer.setBounds(359, 173, 89, 23);
+		btnSupprimer.setBounds(347, 173, 101, 23);
 		panel.add(btnSupprimer);
+		
+		
+		JLabel lblNomRegate = new JLabel("regate");
+		lblNomRegate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNomRegate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNomRegate.setForeground(Color.DARK_GRAY);
+		lblNomRegate.setText("Régate : "+nomRegate);
+		lblNomRegate.setBounds(311, 110, 137, 24);
+		panel.add(lblNomRegate);
+		
 		
 		frmListeDesRegates.setVisible(true);
 	}

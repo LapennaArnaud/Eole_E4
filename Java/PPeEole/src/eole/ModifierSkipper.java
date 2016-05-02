@@ -48,7 +48,7 @@ public class ModifierSkipper extends Outils {
 	private JTextField tfNom;
 	private JTextField tfPrenom;
 	public ModifierSkipper(){
-		final JFrame frmModifierSkipper = new JFrame("Créer un Voilier");
+		final JFrame frmModifierSkipper = new JFrame("Modifier un skipper");
 		frmModifierSkipper.setType(Type.POPUP);
 		frmModifierSkipper.setTitle("Modifier Skipper");
 		frmModifierSkipper.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -130,7 +130,7 @@ public class ModifierSkipper extends Outils {
 			    	s.executeUpdate(requete);
 			    	conn.close();
 			    	s.close();
-			    	javax.swing.JOptionPane.showMessageDialog(null,"Le skipper a était modifié avec succès !");
+			    	javax.swing.JOptionPane.showMessageDialog(null,"Le skipper a été modifié avec succès !");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -159,6 +159,11 @@ public class ModifierSkipper extends Outils {
 		panel.add(btnValider);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg1) {
+				frmModifierSkipper.dispose();
+			}
+		});
 		btnAnnuler.setBounds(565, 250, 89, 23);
 		panel.add(btnAnnuler);
 		

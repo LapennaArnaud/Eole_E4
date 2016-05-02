@@ -121,7 +121,7 @@ public class ModifierRegate extends Outils{
 			    	s.executeUpdate(requete);
 			    	conn.close();
 			    	s.close();
-			    	javax.swing.JOptionPane.showMessageDialog(null,"Cette régate a était supprimé avec succès!");
+			    	javax.swing.JOptionPane.showMessageDialog(null,"Cette régate a été modifiée avec succès!");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -150,6 +150,11 @@ public class ModifierRegate extends Outils{
 		panel.add(btnValider);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		 btnAnnuler.addActionListener(new ActionListener() {
+		      	public void actionPerformed(ActionEvent e) {
+		      		frmModifierRegate.dispose();
+		      	}
+		      });
 		btnAnnuler.setBounds(565, 250, 89, 23);
 		panel.add(btnAnnuler);
 		
@@ -163,7 +168,7 @@ public class ModifierRegate extends Outils{
 		panel.add(lblNom);
 		
 		JLabel lblDistance = new JLabel("Distance");
-		lblDistance.setBounds(452, 81, 46, 14);
+		lblDistance.setBounds(452, 81, 50, 14);
 		panel.add(lblDistance);
 		
 		tfDistance = new JTextField();

@@ -62,6 +62,11 @@ public class ListerResultat extends Outils{
 		panel.add(btnInscrire);
 		
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg1) {
+				frmListeDesRegates.dispose();
+			}
+		});
 		btnQuitter.setBounds(232, 314, 89, 23);
 		panel.add(btnQuitter);
 		

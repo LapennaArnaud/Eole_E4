@@ -14,7 +14,7 @@ public class InscrireVoilierSkipper extends Outils{
 	private JTable table;
 	public InscrireVoilierSkipper(){
 		final JFrame frmListeDesRegates = new JFrame("Créer un Voilier");
-		frmListeDesRegates.setTitle("Liste des R\u00E9gates");
+		frmListeDesRegates.setTitle("Liste des R\u00E9gates en attente");
 		frmListeDesRegates.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListeDesRegates.setSize(389, 400);
 		frmListeDesRegates.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -55,13 +55,22 @@ public class InscrireVoilierSkipper extends Outils{
 		JButton btnInscrire = new JButton("Inscrire");
 		btnInscrire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new PopUpSkipperVoilier((String)table.getValueAt(table.getSelectedRow(), 3));
+				try{
+					new PopUpSkipperVoilier((String)table.getValueAt(table.getSelectedRow(), 3));
+				}catch (Exception e){
+					javax.swing.JOptionPane.showMessageDialog(null,"Veuillez choisir une régate !");
+				}
 			}
 		});
 		btnInscrire.setBounds(38, 314, 89, 23);
 		panel.add(btnInscrire);
 		
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+		      	public void actionPerformed(ActionEvent e) {
+		      		frmListeDesRegates.dispose();
+		      	}
+		      });
 		btnQuitter.setBounds(232, 314, 89, 23);
 		panel.add(btnQuitter);
 		

@@ -37,6 +37,9 @@ import javax.swing.JScrollPane;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
@@ -60,21 +63,22 @@ public class CreerRegate extends Outils {
 		panel.add(lblNom);
 		
 		tfNom = new JTextField();
-		tfNom.setBounds(106, 50, 86, 20);
+		tfNom.setBounds(116, 50, 86, 20);
 		panel.add(tfNom);
 		tfNom.setColumns(10);
 		
 		JLabel lblDistance = new JLabel("Distance");
-		lblDistance.setBounds(50, 92, 46, 14);
+		lblDistance.setBounds(50, 92, 62, 14);
 		panel.add(lblDistance);
 		
 		tfDistance = new JTextField();
-		tfDistance.setBounds(106, 89, 86, 20);
+		tfDistance.setBounds(116, 89, 86, 20);
 		panel.add(tfDistance);
 		tfDistance.setColumns(10);
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(50, 167, 142, 20);
+		dateChooser.setDate(Calendar.getInstance().getTime());
 		panel.add(dateChooser);
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -85,7 +89,7 @@ public class CreerRegate extends Outils {
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tfNom.getText().isEmpty()){
-					javax.swing.JOptionPane.showMessageDialog(null,"Le nom de la régate doit être remplie !");
+					javax.swing.JOptionPane.showMessageDialog(null,"Le nom de la régate doit être rempli !");
 				}else if(estEntier(tfDistance.getText())){
 					javax.swing.JOptionPane.showMessageDialog(null,"La distance doit correctement être remplie !");
 				}else{
@@ -99,7 +103,9 @@ public class CreerRegate extends Outils {
 				    	s.executeUpdate(requete);
 				    	conn.close();
 				    	s.close();
-				    	javax.swing.JOptionPane.showMessageDialog(null,"La régate a était renseigné avec succès !");
+				    	javax.swing.JOptionPane.showMessageDialog(null,"La régate a été renseignée avec succès !");
+				    	tfNom.setText("");
+				    	tfDistance.setText("");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -112,7 +118,7 @@ public class CreerRegate extends Outils {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg1) {
-				System.exit(JFrame.DISPOSE_ON_CLOSE);
+				frmCreerUneRégate.dispose();
 			}
 		});
 		btnAnnuler.setBounds(160, 260, 89, 23);
