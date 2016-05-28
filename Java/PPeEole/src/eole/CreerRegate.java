@@ -106,6 +106,7 @@ public class CreerRegate extends Outils {
 				    	javax.swing.JOptionPane.showMessageDialog(null,"La régate a été renseignée avec succès !");
 				    	tfNom.setText("");
 				    	tfDistance.setText("");
+				    	chargeListeRegAcceuil();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -125,5 +126,6 @@ public class CreerRegate extends Outils {
 		panel.add(btnAnnuler);
 		
 		frmCreerUneRégate.setVisible(true);
+		
 	}
 }

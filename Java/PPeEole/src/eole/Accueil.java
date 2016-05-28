@@ -9,9 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.lang.CharRange;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -19,7 +22,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -192,55 +197,33 @@ public class Accueil {
       lbResultat.setBounds(40, 137, 78, 14);
       panel.add(lbResultat);
       
+      /////////// tableau !!!!!!!!!!!!!!!///////////////////
+      
+      JScrollPane scrollPaneResultat = new JScrollPane();
+      
       tblResultat = new JTable();
-      tblResultat.setModel(new DefaultTableModel(
-      	new Object[][] {
-      		{"Classes", "Voiliers", "Temps"},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      		{null, null, null},
-      	},
-      	new String[] {
-      		"colClasses", "colVoiliers", "colTemps"
-      	}
-      ) {
-      	Class[] columnTypes = new Class[] {
-      		String.class, String.class, String.class
-      	};
-      	public Class getColumnClass(int columnIndex) {
-      		return columnTypes[columnIndex];
-      	}
-      });
+      tblResultat.setRowSelectionAllowed(false);
       tblResultat.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-      tblResultat.setBounds(40, 161, 267, 362);
-      panel.add(tblResultat);
+      
+      String[] entetes = {"Classes", "Voiliers","Temps Compensé"};
+      Object[][] data = {};
+      DefaultTableModel modeleResultat = new DefaultTableModel(data, entetes);
+      tblResultat.setModel(modeleResultat);
+      //modeleResultat.addRow(new Object[] {"String1","String2","String3"});
+      
+      scrollPaneResultat.setBounds(40, 161, 272, 362);
+      scrollPaneResultat.setViewportView(tblResultat);
+      panel.add(scrollPaneResultat);
+      
+      //////////////////////////////////////////// !!!!!!!!!!!!!!!!
       
       JLabel lblListeRegates = new JLabel("Liste Regates :");
       lblListeRegates.setToolTipText("");
       lblListeRegates.setBounds(675, 137, 92, 14);
       panel.add(lblListeRegates);
       
+      Outils outils = new Outils();
+      outils.chargeListeRegAcceuil();
       listRegates = new JList(model);
       listRegates.setToolTipText("");
       listRegates.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -257,17 +240,49 @@ public class Accueil {
       panel.add(btnCreationRegate);
       
       JButton btnModiffRegate = new JButton("Modification R\u00E9gate");
+      btnModiffRegate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new ModifierRegate();
+        	}
+        });
       btnModiffRegate.setBounds(405, 271, 151, 23);
       panel.add(btnModiffRegate);
       
       JButton btnLancerRegate = new JButton("Lancer R\u00E9gate");
+      btnLancerRegate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		new LancerRegate();
+        	}
+        });
       btnLancerRegate.setBounds(405, 320, 151, 23);
       panel.add(btnLancerRegate);
       
       JButton btnResultat = new JButton("R\u00E9sultat");
       btnResultat.addActionListener(new ActionListener() {
       	public void actionPerformed(ActionEvent arg0) {
-      		//new FenResultat();
+      		//new ListerResultat();
+      		//System.out.println(listRegates.getSelectedValue());
+      		//modeleResultat.addRow(new Object[] {"String1","String2","String3"});
+      		modeleResultat.setRowCount(0);
+      		
+      		Connection conn;
+        	String requete = "SELECT p.NumVoilier, TmpsCompense, Classe FROM Participer p, Voilier v";
+        	requete += " Where p.NumVoilier = v.NumVoilier and p.NumRegate IN( Select NumRegate FROM Regate Where NomRegate = '" + listRegates.getSelectedValue() + "') ORDER BY TmpsCompense DESC";
+        	System.out.println(requete);
+    		try {
+    			conn = DriverManager.getConnection(Outils.cheminBdd);
+    	    	Statement s = conn.createStatement();
+    	    	ResultSet rs = s.executeQuery(requete);
+    	    	while (rs.next()) {
+    	    		modeleResultat.addRow(new Object[] {rs.getString(3),rs.getString(1),rs.getInt(2)});   	    		
+    	    	}
+    	    	conn.close();
+    	    	s.close();
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+      		
+      		
       	}
       });
       btnResultat.setBounds(405, 371, 151, 23);
@@ -276,7 +291,7 @@ public class Accueil {
       JButton btnExit = new JButton("Quitter");
       btnExit.addActionListener(new ActionListener() {
       	public void actionPerformed(ActionEvent arg0) {
-      		System.exit(JFrame.DISPOSE_ON_CLOSE);
+      		System.exit(JFrame.DISPOSE_ON_CLOSE);      		
       	}
       });
       btnExit.setBounds(405, 421, 151, 23);
@@ -284,4 +299,5 @@ public class Accueil {
       
       f.setVisible(true);
     }
+		
 }

@@ -122,6 +122,7 @@ public class Resultats extends Outils {
 		DefaultTableModel modele4 = new DefaultTableModel(data, entetes);
 		tblClasse4.setModel(modele4);
 		
+		
 		Connection conn;
     	String requete = "SELECT p.NumVoilier, NumSkipper, TmpsReel, TmpsCompense, Classe FROM Participer p, Voilier v";
     	requete += " Where p.NumVoilier = v.NumVoilier and NumRegate = " + NumRegate + " ORDER BY TmpsReel DESC";

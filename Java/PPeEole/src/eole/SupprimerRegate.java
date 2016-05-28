@@ -77,6 +77,7 @@ public class SupprimerRegate extends Outils{
 				    	conn.close();
 				    	s.close();
 				    	javax.swing.JOptionPane.showMessageDialog(null,"Cette Régate a été supprimée avec succès !");
+				    	chargeListeRegAcceuil();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

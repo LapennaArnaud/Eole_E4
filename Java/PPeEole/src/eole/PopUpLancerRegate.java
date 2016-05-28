@@ -26,7 +26,7 @@ public class PopUpLancerRegate extends Outils{
 	private JTextField tfSeconde;
 	public PopUpLancerRegate(String NumRegate){
 		final JFrame frmListeDesRegates = new JFrame("Créer un Voilier");
-		frmListeDesRegates.setTitle("Liste des R\u00E9gates");
+		frmListeDesRegates.setTitle("Voiliers en course");
 		frmListeDesRegates.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListeDesRegates.setSize(573, 346);
 		frmListeDesRegates.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -158,7 +158,7 @@ public class PopUpLancerRegate extends Outils{
 				tfSeconde.setText("");				
 			}
 		});
-		btnNoterTemps.setBounds(270, 182, 98, 23);
+		btnNoterTemps.setBounds(270, 182, 110, 23);
 		panel.add(btnNoterTemps);
 		
 		JButton btnTerminer = new JButton("Terminer");
@@ -179,7 +179,7 @@ public class PopUpLancerRegate extends Outils{
 				}
 			}
 		});
-		btnTerminer.setBounds(397, 182, 89, 23);
+		btnTerminer.setBounds(406, 182, 89, 23);
 		panel.add(btnTerminer);
 		
 		frmListeDesRegates.setVisible(true);

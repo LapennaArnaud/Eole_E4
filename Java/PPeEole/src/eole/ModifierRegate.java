@@ -122,6 +122,7 @@ public class ModifierRegate extends Outils{
 			    	conn.close();
 			    	s.close();
 			    	javax.swing.JOptionPane.showMessageDialog(null,"Cette régate a été modifiée avec succès!");
+			    	chargeListeRegAcceuil();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
